@@ -13,17 +13,19 @@ Code   SEGMENT WORD 'CODE'
        ASSUME  CS:Code, DS:DataS
 
 DispMsg:
-	mov AX,DataS
-	mov DS,AX
-	mov CX,3
-	mov DX,OFFSET HelloMessage
-	mov AH,9
-	hello:
-	    int 21h
-	    loop hello
-	mov AH,7
-	int 21h
-	mov Ah,4Ch
-	int 21h
+    mov AX, DataS
+    mov DS, AX
+    mov CX, 3
+    mov DX, OFFSET HelloMessage
+    mov AH, 9
+    hello:
+        int 21h
+        loop hello
+    mov AH, 7
+    int 21h
+
+    mov Ah, 4Ch
+    int 21h
 Code	ENDS
-	END DispMsg 
+
+END DispMsg 
