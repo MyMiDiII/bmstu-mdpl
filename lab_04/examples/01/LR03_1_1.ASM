@@ -7,26 +7,26 @@ EXTRN output_X: near
 ; соединять все одноименные сегменты
 ; и считать адрес от регистра ss
 STK SEGMENT PARA STACK 'STACK'
-	db 100 dup(0)
+    db 100 dup(0)
 STK ENDS
 
 DSEG SEGMENT PARA PUBLIC 'DATA'
-	X db 'R'
+    X db 'R'
 DSEG ENDS
 
 CSEG SEGMENT PARA PUBLIC 'CODE'
-	assume CS:CSEG, DS:DSEG, SS:STK
+    assume CS:CSEG, DS:DSEG, SS:STK
 main:
-	; запись адреса сегмента данных DSEG в регистр DS 
-	mov ax, DSEG
-	mov ds, ax
-
-	; вызов подпрограммы из другого модуля
-	call output_X	
-
-	; завершение программы
-	mov ax, 4c00h
-	int 21h
+    ; запись адреса сегмента данных DSEG в регистр DS 
+    mov ax, DSEG
+    mov ds, ax
+    
+    ; вызов подпрограммы из другого модуля
+    call output_X	
+    
+    ; завершение программы
+    mov ax, 4c00h
+    int 21h
 CSEG ENDS
 
 ; идентификатор, доступный из других модулей
