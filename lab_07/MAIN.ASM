@@ -1,3 +1,7 @@
+; в комментариях пример
+; вызова системного обработчика
+; другим способом
+
 .MODEL TINY
 
 CODESEG SEGMENT
@@ -11,6 +15,8 @@ main:
     cur_sec     DB  0
 
 cyclic09h proc
+    ; pushf
+    ; call CS:sys_handler
     push AX
     push CX
     push DX
@@ -40,6 +46,8 @@ to_pop:
     pop CX
     pop AX
     jmp CS:sys_handler
+    ; без предыдущей строки
+    ; iret
 cyclic09h endp
 
 init:
