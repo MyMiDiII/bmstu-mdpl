@@ -40,7 +40,7 @@ int main(void)
     char test1_string[] = "";
     char test2_string[] = TEST_STRING;
 
-    printf("Lenght tests\n");
+    printf("\nLenght tests\n");
     printf("TEST 1. Empty string\n");
     size_t stdlen = strlen(test1_string);
     size_t asmblen = asmlen(test1_string);
@@ -57,42 +57,50 @@ int main(void)
 
     char buffer[BUFSIZE];
 
-    printf("Copy tests\n");
+    printf("\nCopy tests\n");
     printf("TEST 1. General\n");
-    printf("IN : %s\n", test2_string);
+    printf("SRC: %s\n", test2_string);
+    printf("LEN: %lu\n", asmblen);
     asmstrcpy(buffer, test2_string, asmblen);
-    printf("OUT: %s\n", test2_string);
-    printf("%s", strcmp(buffer, TEST_STRING) ? PASSED : FAILED);
+    printf("DST: %s\n", buffer);
+    printf("%s", !strcmp(buffer, TEST_STRING) ? PASSED : FAILED);
 
     printf("TEST 2. String part\n");
-    printf("IN : %s\n", test2_string);
+    printf("SRC: %s\n", test2_string);
+    printf("LEN: %lu\n", 4LU);
     asmstrcpy(buffer, test2_string, 4);
-    printf("OUT: %s\n", test2_string);
-    printf("%s", strcmp(buffer, TEST_STRING) ? PASSED : FAILED);
+    printf("OUT: %s\n", buffer);
+    printf("%s", !strcmp(buffer, "Test") ? PASSED : FAILED);
 
     printf("TEST 3. DST = SRC\n");
-    printf("IN : %s\n", test2_string);
+    printf("SRC: %s\n", test2_string);
+    printf("LEN: %lu\n", asmblen);
     asmstrcpy(test2_string, test2_string, asmblen);
     printf("OUT: %s\n", test2_string);
-    printf("%s", strcmp(buffer, TEST_STRING) ? PASSED : FAILED);
+    printf("%s", !strcmp(test2_string, TEST_STRING) ? PASSED : FAILED);
 
-    printf("TEST 4. DST < SRC (SRC - DSC < len)\n");
-    printf("IN : %s\n", test2_string);
-    asmstrcpy(test2_string, test2_string + asmblen / 2, asmblen);
+    printf("TEST 4. DST < SRC (SRC - DST < len)\n");
+    printf("SRC: %s\n", test2_string);
+    printf("LEN: %lu\n", asmblen / 2);
+    asmstrcpy(test2_string, test2_string + asmblen / 2, asmblen / 2);
     printf("OUT: %s\n", test2_string);
-    printf("%s", strcmp(buffer, TEST_STRING) ? PASSED : FAILED);
+    printf("%s", !strcmp(test2_string, "ring!!!") ? PASSED : FAILED);
 
-    printf("TEST 5. DST > SRC (DSC - SRC < len)\n");
-    printf("IN : %s\n", test2_string);
-    asmstrcpy(test2_string + asmblen / 2, test2_string, asmblen);
-    printf("OUT: %s\n", test2_string);
-    printf("%s", strcmp(buffer, TEST_STRING) ? PASSED : FAILED);
+    char test2_copy[] = TEST_STRING;
+    printf("TEST 5. DST > SRC (DST - SRC < len)\n");
+    printf("SRC: %s\n", test2_copy);
+    printf("LEN: %lu\n", asmblen);
+    asmstrcpy(test2_copy + asmblen / 2, test2_copy, asmblen);
+    printf("OUT: %s\n", test2_copy + asmblen / 2);
+    printf("%s", !strcmp(test2_copy + asmblen / 2, TEST_STRING) ? PASSED : FAILED);
 
-    printf("TEST 6. DST > SRC (DSC - SRC == len)\n");
-    printf("IN : %s\n", test2_string);
-    asmstrcpy(test2_string + asmblen, test2_string, asmblen);
-    printf("OUT: %s\n", test2_string);
-    printf("%s", strcmp(TEST_STRING, buffer) ? PASSED : FAILED);
+    char test2_copy2[] = TEST_STRING;
+    printf("TEST 6. DST > SRC (DST - SRC == len)\n");
+    printf("SRC: %s\n", test2_copy2);
+    printf("LEN: %lu\n", asmblen);
+    asmstrcpy(test2_copy2 + asmblen, test2_copy2, asmblen);
+    printf("OUT: %s\n", test2_copy2 + asmblen);
+    printf("%s", !strcmp(test2_copy2 + asmblen, TEST_STRING) ? PASSED : FAILED);
 
     return OK;
 }
