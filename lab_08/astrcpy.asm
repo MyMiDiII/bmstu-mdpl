@@ -1,7 +1,7 @@
-global asmstrcpy
+global astrcpy
 section .text
 
-asmstrcpy:
+astrcpy:
     mov rcx, rdx
     mov rbx, rdi
 
