@@ -3,16 +3,16 @@ section .text
 
 asmstrcpy:
     mov rcx, rdx
+    mov rbx, rdi
 
     cmp rdi, rsi
-    je quit
-    jl copy
+    jbe copy    ; DTS <= SRC
 
     mov rax, rdi
     sub rax, rsi
 
     cmp rax, rcx
-    jge copy
+    ja copy     ; DST - SRC < len
 
     add rdi, rcx
     add rsi, rcx
@@ -23,5 +23,7 @@ asmstrcpy:
 copy:
     rep movsb
     cld
+
+    mov byte [rbx + rdx], 0
 quit:
     ret
