@@ -7,7 +7,7 @@
 #define PASSED "\033[1;32mPASSED\033[0m\n"
 #define FAILED "\033[1;31mFAILED\033[0m\n"
 
-#define BUFSIZE 100
+#define BUFSIZE 20
 
 #define TEST_STRING "Test string!!!"
 
@@ -55,7 +55,7 @@ int main(void)
     printf("asmlen = %ld\n", asmblen);
     printf("%s", (stdlen == asmblen) ? PASSED : FAILED);
 
-    char buffer[BUFSIZE];
+    char buffer[BUFSIZE] = "abcdrekjkjasdfkj";
 
     printf("\nCopy tests\n");
     printf("TEST 1. General\n");
@@ -65,12 +65,13 @@ int main(void)
     printf("DST: %s\n", buffer);
     printf("%s", !strcmp(buffer, TEST_STRING) ? PASSED : FAILED);
 
+    char buffer2[BUFSIZE] = "abcdrekjkjasdfkj";
     printf("TEST 2. String part\n");
     printf("SRC: %s\n", test2_string);
     printf("LEN: %lu\n", 4LU);
-    asmstrcpy(buffer, test2_string, 4);
-    printf("OUT: %s\n", buffer);
-    printf("%s", !strcmp(buffer, "Test") ? PASSED : FAILED);
+    asmstrcpy(buffer2, test2_string, 4);
+    printf("OUT: %s\n", buffer2);
+    printf("%s", !strcmp(buffer2, "Test") ? PASSED : FAILED);
 
     printf("TEST 3. DST = SRC\n");
     printf("SRC: %s\n", test2_string);
