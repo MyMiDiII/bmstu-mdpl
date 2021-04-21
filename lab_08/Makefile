@@ -1,10 +1,10 @@
 app : main.o tests.o astrcpy.o asmstr.o
 	gcc $^ -o $@
 
-main.o : main.c tests.h
-	gcc -c  $<
+main.o : main.c tests.h asmstr.h
+	gcc -c $<
 
-test.o : tests.c tests.h
+tests.o : tests.c tests.h
 	gcc -c $<
 
 asmstr.o : asmstr.c asmstr.h

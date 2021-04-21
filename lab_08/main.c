@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "tests.h"
+#include "asmstr.h"
 
 #define OK 0
 #define BUFSIZE 20
