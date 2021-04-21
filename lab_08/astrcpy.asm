@@ -3,7 +3,7 @@ section .text
 
 astrcpy:
     mov rcx, rdx
-    mov rbx, rdi
+    mov r8, rdi
 
     cmp rdi, rsi
     jbe copy    ; DTS <= SRC
@@ -24,6 +24,6 @@ copy:
     rep movsb
     cld
 
-    mov byte [rbx + rdx], 0
+    mov byte [r8 + rdx], 0
 quit:
     ret
