@@ -7,6 +7,8 @@
 int main(void)
 {
     printFloatCharacteristics();
+    printDoubleCharacteristics();
+    printLongDoubleCharacteristics();
 
     return OK;
 }

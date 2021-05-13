@@ -3,6 +3,6 @@
 
 #include "config.h"
 
-int getLongDoubleSize(void);
+void printLongDoubleCharacteristics();
 
 #endif

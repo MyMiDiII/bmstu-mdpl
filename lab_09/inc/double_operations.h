@@ -3,6 +3,6 @@
 
 #include "config.h"
 
-int getDoubleSize(void);
+void printDoubleCharacteristics();
 
 #endif

@@ -5,12 +5,12 @@ int getFloatSize(void)
     return sizeof(float) * __CHAR_BIT__;
 }
 
-float getCSum(float a, float b)
+float getFloatCSum(float a, float b)
 {
     return a + b;
 }
 
-float getCProd(float a, float b)
+float getFloatCProd(float a, float b)
 {
     return a * b;
 }
@@ -33,7 +33,7 @@ double getFloatFuncTime(float (*func)(float, float))
 void printFloatCharacteristics()
 {
     puts("FLOAT");
-    printf("Float size: %d;\n", getFloatSize());
-    printf("C sum: %g с\n", getFloatFuncTime(getCSum));
-    printf("C prod: %g с\n", getFloatFuncTime(getCProd));
+    printf("Size:     %9d bit\n", getFloatSize());
+    printf("C   sum   %9.4g s\n", getFloatFuncTime(getFloatCSum));
+    printf("C   prod: %9.4g s\n", getFloatFuncTime(getFloatCProd));
 }
