@@ -13,20 +13,19 @@ OBGS := $(patsubst $(SRCDIR)%.c,$(OUTDIR)%.o,$(SRCS))
 
 DEPS := $(patsubst %.o,%.d,$(OBGS))
 
-.PHONY : clean debug release
+.PHONY : clean makeX87 makeNOX87
 
-debug : appM80387 appMNO80387
-
-release : clean app
+X87 : clean appM80387
+NOX87 : clean appMNO80387
 
 appM80387 : CFLAGS += -m80387 -DX87
 appMNO80387 : CFLAGS += -mno-80387
 
 appM80387 : $(OBGS) 
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -lm
 
 appMNO80387 : $(OBGS) 
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -lm
 
 $(OUTDIR)%.o : %.c
 	@mkdir -p $(@D)
@@ -39,5 +38,5 @@ $(OUTDIR)%.d : %.c
 include $(DEPS)
 
 clean :
-	rm -f app
+	rm -f app*
 	rm -fr $(OUTDIR)
