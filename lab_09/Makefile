@@ -13,10 +13,10 @@ OBGS := $(patsubst $(SRCDIR)%.c,$(OUTDIR)%.o,$(SRCS))
 
 DEPS := $(patsubst %.o,%.d,$(OBGS))
 
-.PHONY : clean makeX87 makeNOX87
+.PHONY : clean makeX87 makeNOX87 cleanOut
 
-X87 : clean appM80387
-NOX87 : clean appMNO80387
+X87 : cleanOut appM80387
+NOX87 : cleanOut appMNO80387
 
 appM80387 : CFLAGS += -m80387 -DX87
 appMNO80387 : CFLAGS += -mno-80387
@@ -37,6 +37,8 @@ $(OUTDIR)%.d : %.c
 
 include $(DEPS)
 
-clean :
-	rm -f app*
+cleanOut :
 	rm -fr $(OUTDIR)
+
+clean : cleanOut
+	rm -f app*
