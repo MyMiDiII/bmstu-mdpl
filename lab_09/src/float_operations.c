@@ -13,7 +13,8 @@ float getFloatCSum(float a, float b)
 
 float getFloatCProd(float a, float b)
 {
-    return a * b;
+    float res = a * b;
+    return res;
 }
 
 float getFloatAsmSum(float a, float b)
@@ -34,14 +35,22 @@ float getFloatAsmSum(float a, float b)
 
 float getFloatAsmProd(float a, float b)
 {
-    return a * b;
+    float res;
+
+    __asm__(
+        "fld %1\n"
+        "fld %2\n"
+        "fmulp\n"
+        "fstp %0"
+        : "=m" (res)
+        : "m" (a), "m" (b)
+    );
+
+    return res;
 }
 
-double getFloatFuncTime(float (*func)(float, float))
+double getFloatFuncTime(float a, float b, float (*func)(float, float))
 {
-    float a = 2.3e38;
-    float b = 1.1e38;
-
     clock_t start = clock();
     
     for (size_t i = 0; i < REPEATS; ++i)
@@ -54,18 +63,33 @@ double getFloatFuncTime(float (*func)(float, float))
 
 void printFloatCharacteristics()
 {
+    float a = 2.3e38;
+    float b = 1.1e38;
+
     puts("FLOAT");
     printf("Size:     %9d bit\n", getFloatSize());
     printf(
-        "C   sum   %9.4g s res = %g\n",
-        getFloatFuncTime(getFloatCSum),
-        getFloatCSum(2.3e38, 1.1e38)
+        "C   sum   %9.4g s   res = %g\n",
+        getFloatFuncTime(a, b, getFloatCSum),
+        getFloatCSum(a, b)
     );
     printf(
-        "ASM sum   %9.4g s res = %g\n",
-        getFloatFuncTime(getFloatAsmSum),
-        getFloatAsmSum(2.3e38, 1.1e38)
+        "ASM sum   %9.4g s   res = %g\n",
+        getFloatFuncTime(a, b, getFloatAsmSum),
+        getFloatAsmSum(a, b)
     );
-    printf("C   prod: %9.4g s\n", getFloatFuncTime(getFloatCProd));
-    printf("ASM prod: %9.4g s\n", getFloatFuncTime(getFloatAsmProd));
+
+    a = 2.3e19;
+    b = 1.1e19;
+
+    printf(
+        "C   prod  %9.4g s   res = %g\n",
+        getFloatFuncTime(a, b, getFloatCProd),
+        getFloatCProd(a, b)
+    );
+    printf(
+        "ASM prod  %9.4g s   res = %g\n",
+        getFloatFuncTime(a, b, getFloatAsmProd),
+        getFloatAsmProd(a, b)
+    );
 }
