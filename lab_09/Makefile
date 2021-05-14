@@ -6,7 +6,7 @@ vpath %.c $(SRCDIR)
 
 CC := gcc
 PATHFLAG := -I$(INCDIR)
-CFLAGS := -std=c99 $(PATHFLAG) -Wall -m80387 -O0 -fno-inline
+CFLAGS := -std=c99 $(PATHFLAG) -Wall -Werror -O0 -fno-inline -masm=intel
 
 SRCS := $(wildcard $(SRCDIR)*.c)
 OBGS := $(patsubst $(SRCDIR)%.c,$(OUTDIR)%.o,$(SRCS))
@@ -15,11 +15,17 @@ DEPS := $(patsubst %.o,%.d,$(OBGS))
 
 .PHONY : clean debug release
 
-debug : app
+debug : appM80387 appMNO80387
 
 release : clean app
 
-app : $(OBGS) 
+appM80387 : CFLAGS += -m80387 -DX87
+appMNO80387 : CFLAGS += -mno-80387
+
+appM80387 : $(OBGS) 
+	$(CC) $(CFLAGS) $^ -o $@
+
+appMNO80387 : $(OBGS) 
 	$(CC) $(CFLAGS) $^ -o $@
 
 $(OUTDIR)%.o : %.c
