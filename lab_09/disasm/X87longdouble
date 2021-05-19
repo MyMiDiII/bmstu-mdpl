@@ -1,0 +1,220 @@
+
+out/long_double_operations.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <getLongDoubleSize>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	b8 80 00 00 00       	mov    $0x80,%eax
+   d:	5d                   	pop    %rbp
+   e:	c3                   	retq   
+
+000000000000000f <getLongDoubleCSum>:
+   f:	f3 0f 1e fa          	endbr64 
+  13:	55                   	push   %rbp
+  14:	48 89 e5             	mov    %rsp,%rbp
+  17:	db 6d 10             	fldt   0x10(%rbp)
+  1a:	db 6d 20             	fldt   0x20(%rbp)
+  1d:	de c1                	faddp  %st,%st(1)
+  1f:	db 7d f0             	fstpt  -0x10(%rbp)
+  22:	db 6d f0             	fldt   -0x10(%rbp)
+  25:	5d                   	pop    %rbp
+  26:	c3                   	retq   
+
+0000000000000027 <getLongDoubleCProd>:
+  27:	f3 0f 1e fa          	endbr64 
+  2b:	55                   	push   %rbp
+  2c:	48 89 e5             	mov    %rsp,%rbp
+  2f:	db 6d 10             	fldt   0x10(%rbp)
+  32:	db 6d 20             	fldt   0x20(%rbp)
+  35:	de c9                	fmulp  %st,%st(1)
+  37:	db 7d f0             	fstpt  -0x10(%rbp)
+  3a:	db 6d f0             	fldt   -0x10(%rbp)
+  3d:	5d                   	pop    %rbp
+  3e:	c3                   	retq   
+
+000000000000003f <getLongDoubleAsmSum>:
+  3f:	f3 0f 1e fa          	endbr64 
+  43:	55                   	push   %rbp
+  44:	48 89 e5             	mov    %rsp,%rbp
+  47:	48 83 ec 20          	sub    $0x20,%rsp
+  4b:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+  52:	00 00 
+  54:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+  58:	31 c0                	xor    %eax,%eax
+  5a:	db 6d 10             	fldt   0x10(%rbp)
+  5d:	db 6d 20             	fldt   0x20(%rbp)
+  60:	de c1                	faddp  %st,%st(1)
+  62:	db 7d e0             	fstpt  -0x20(%rbp)
+  65:	db 6d e0             	fldt   -0x20(%rbp)
+  68:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  6c:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+  73:	00 00 
+  75:	74 07                	je     7e <getLongDoubleAsmSum+0x3f>
+  77:	dd d8                	fstp   %st(0)
+  79:	e8 00 00 00 00       	callq  7e <getLongDoubleAsmSum+0x3f>
+  7e:	c9                   	leaveq 
+  7f:	c3                   	retq   
+
+0000000000000080 <getLongDoubleAsmProd>:
+  80:	f3 0f 1e fa          	endbr64 
+  84:	55                   	push   %rbp
+  85:	48 89 e5             	mov    %rsp,%rbp
+  88:	48 83 ec 20          	sub    $0x20,%rsp
+  8c:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+  93:	00 00 
+  95:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+  99:	31 c0                	xor    %eax,%eax
+  9b:	db 6d 10             	fldt   0x10(%rbp)
+  9e:	db 6d 20             	fldt   0x20(%rbp)
+  a1:	de c9                	fmulp  %st,%st(1)
+  a3:	db 7d e0             	fstpt  -0x20(%rbp)
+  a6:	db 6d e0             	fldt   -0x20(%rbp)
+  a9:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  ad:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+  b4:	00 00 
+  b6:	74 07                	je     bf <getLongDoubleAsmProd+0x3f>
+  b8:	dd d8                	fstp   %st(0)
+  ba:	e8 00 00 00 00       	callq  bf <getLongDoubleAsmProd+0x3f>
+  bf:	c9                   	leaveq 
+  c0:	c3                   	retq   
+
+00000000000000c1 <getLongDoubleFuncTime>:
+  c1:	f3 0f 1e fa          	endbr64 
+  c5:	55                   	push   %rbp
+  c6:	48 89 e5             	mov    %rsp,%rbp
+  c9:	48 83 ec 30          	sub    $0x30,%rsp
+  cd:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+  d1:	e8 00 00 00 00       	callq  d6 <getLongDoubleFuncTime+0x15>
+  d6:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+  da:	48 c7 45 e8 00 00 00 	movq   $0x0,-0x18(%rbp)
+  e1:	00 
+  e2:	eb 1d                	jmp    101 <getLongDoubleFuncTime+0x40>
+  e4:	ff 75 28             	pushq  0x28(%rbp)
+  e7:	ff 75 20             	pushq  0x20(%rbp)
+  ea:	ff 75 18             	pushq  0x18(%rbp)
+  ed:	ff 75 10             	pushq  0x10(%rbp)
+  f0:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  f4:	ff d0                	callq  *%rax
+  f6:	dd d8                	fstp   %st(0)
+  f8:	48 83 c4 20          	add    $0x20,%rsp
+  fc:	48 83 45 e8 01       	addq   $0x1,-0x18(%rbp)
+ 101:	48 81 7d e8 3f 42 0f 	cmpq   $0xf423f,-0x18(%rbp)
+ 108:	00 
+ 109:	76 d9                	jbe    e4 <getLongDoubleFuncTime+0x23>
+ 10b:	e8 00 00 00 00       	callq  110 <getLongDoubleFuncTime+0x4f>
+ 110:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 114:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 118:	48 2b 45 f0          	sub    -0x10(%rbp),%rax
+ 11c:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+ 121:	f2 0f 10 0d 00 00 00 	movsd  0x0(%rip),%xmm1        # 129 <getLongDoubleFuncTime+0x68>
+ 128:	00 
+ 129:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+ 12d:	f2 0f 10 0d 00 00 00 	movsd  0x0(%rip),%xmm1        # 135 <getLongDoubleFuncTime+0x74>
+ 134:	00 
+ 135:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+ 139:	c9                   	leaveq 
+ 13a:	c3                   	retq   
+
+000000000000013b <printLongDoubleCharacteristics>:
+ 13b:	f3 0f 1e fa          	endbr64 
+ 13f:	55                   	push   %rbp
+ 140:	48 89 e5             	mov    %rsp,%rbp
+ 143:	48 83 ec 30          	sub    $0x30,%rsp
+ 147:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 14e <printLongDoubleCharacteristics+0x13>
+ 14e:	e8 00 00 00 00       	callq  153 <printLongDoubleCharacteristics+0x18>
+ 153:	db 2d 00 00 00 00    	fldt   0x0(%rip)        # 159 <printLongDoubleCharacteristics+0x1e>
+ 159:	db 7d e0             	fstpt  -0x20(%rbp)
+ 15c:	db 2d 00 00 00 00    	fldt   0x0(%rip)        # 162 <printLongDoubleCharacteristics+0x27>
+ 162:	db 7d f0             	fstpt  -0x10(%rbp)
+ 165:	e8 00 00 00 00       	callq  16a <printLongDoubleCharacteristics+0x2f>
+ 16a:	89 c6                	mov    %eax,%esi
+ 16c:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 173 <printLongDoubleCharacteristics+0x38>
+ 173:	b8 00 00 00 00       	mov    $0x0,%eax
+ 178:	e8 00 00 00 00       	callq  17d <printLongDoubleCharacteristics+0x42>
+ 17d:	ff 75 f8             	pushq  -0x8(%rbp)
+ 180:	ff 75 f0             	pushq  -0x10(%rbp)
+ 183:	ff 75 e8             	pushq  -0x18(%rbp)
+ 186:	ff 75 e0             	pushq  -0x20(%rbp)
+ 189:	e8 00 00 00 00       	callq  18e <printLongDoubleCharacteristics+0x53>
+ 18e:	48 83 c4 20          	add    $0x20,%rsp
+ 192:	db 7d d0             	fstpt  -0x30(%rbp)
+ 195:	ff 75 f8             	pushq  -0x8(%rbp)
+ 198:	ff 75 f0             	pushq  -0x10(%rbp)
+ 19b:	ff 75 e8             	pushq  -0x18(%rbp)
+ 19e:	ff 75 e0             	pushq  -0x20(%rbp)
+ 1a1:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 1a8 <printLongDoubleCharacteristics+0x6d>
+ 1a8:	e8 00 00 00 00       	callq  1ad <printLongDoubleCharacteristics+0x72>
+ 1ad:	48 83 c4 20          	add    $0x20,%rsp
+ 1b1:	ff 75 d8             	pushq  -0x28(%rbp)
+ 1b4:	ff 75 d0             	pushq  -0x30(%rbp)
+ 1b7:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 1be <printLongDoubleCharacteristics+0x83>
+ 1be:	b8 01 00 00 00       	mov    $0x1,%eax
+ 1c3:	e8 00 00 00 00       	callq  1c8 <printLongDoubleCharacteristics+0x8d>
+ 1c8:	48 83 c4 10          	add    $0x10,%rsp
+ 1cc:	ff 75 f8             	pushq  -0x8(%rbp)
+ 1cf:	ff 75 f0             	pushq  -0x10(%rbp)
+ 1d2:	ff 75 e8             	pushq  -0x18(%rbp)
+ 1d5:	ff 75 e0             	pushq  -0x20(%rbp)
+ 1d8:	e8 00 00 00 00       	callq  1dd <printLongDoubleCharacteristics+0xa2>
+ 1dd:	48 83 c4 20          	add    $0x20,%rsp
+ 1e1:	db 7d d0             	fstpt  -0x30(%rbp)
+ 1e4:	ff 75 f8             	pushq  -0x8(%rbp)
+ 1e7:	ff 75 f0             	pushq  -0x10(%rbp)
+ 1ea:	ff 75 e8             	pushq  -0x18(%rbp)
+ 1ed:	ff 75 e0             	pushq  -0x20(%rbp)
+ 1f0:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 1f7 <printLongDoubleCharacteristics+0xbc>
+ 1f7:	e8 00 00 00 00       	callq  1fc <printLongDoubleCharacteristics+0xc1>
+ 1fc:	48 83 c4 20          	add    $0x20,%rsp
+ 200:	ff 75 d8             	pushq  -0x28(%rbp)
+ 203:	ff 75 d0             	pushq  -0x30(%rbp)
+ 206:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 20d <printLongDoubleCharacteristics+0xd2>
+ 20d:	b8 01 00 00 00       	mov    $0x1,%eax
+ 212:	e8 00 00 00 00       	callq  217 <printLongDoubleCharacteristics+0xdc>
+ 217:	48 83 c4 10          	add    $0x10,%rsp
+ 21b:	ff 75 f8             	pushq  -0x8(%rbp)
+ 21e:	ff 75 f0             	pushq  -0x10(%rbp)
+ 221:	ff 75 e8             	pushq  -0x18(%rbp)
+ 224:	ff 75 e0             	pushq  -0x20(%rbp)
+ 227:	e8 00 00 00 00       	callq  22c <printLongDoubleCharacteristics+0xf1>
+ 22c:	48 83 c4 20          	add    $0x20,%rsp
+ 230:	db 7d d0             	fstpt  -0x30(%rbp)
+ 233:	ff 75 f8             	pushq  -0x8(%rbp)
+ 236:	ff 75 f0             	pushq  -0x10(%rbp)
+ 239:	ff 75 e8             	pushq  -0x18(%rbp)
+ 23c:	ff 75 e0             	pushq  -0x20(%rbp)
+ 23f:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 246 <printLongDoubleCharacteristics+0x10b>
+ 246:	e8 00 00 00 00       	callq  24b <printLongDoubleCharacteristics+0x110>
+ 24b:	48 83 c4 20          	add    $0x20,%rsp
+ 24f:	ff 75 d8             	pushq  -0x28(%rbp)
+ 252:	ff 75 d0             	pushq  -0x30(%rbp)
+ 255:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 25c <printLongDoubleCharacteristics+0x121>
+ 25c:	b8 01 00 00 00       	mov    $0x1,%eax
+ 261:	e8 00 00 00 00       	callq  266 <printLongDoubleCharacteristics+0x12b>
+ 266:	48 83 c4 10          	add    $0x10,%rsp
+ 26a:	ff 75 f8             	pushq  -0x8(%rbp)
+ 26d:	ff 75 f0             	pushq  -0x10(%rbp)
+ 270:	ff 75 e8             	pushq  -0x18(%rbp)
+ 273:	ff 75 e0             	pushq  -0x20(%rbp)
+ 276:	e8 00 00 00 00       	callq  27b <printLongDoubleCharacteristics+0x140>
+ 27b:	48 83 c4 20          	add    $0x20,%rsp
+ 27f:	db 7d d0             	fstpt  -0x30(%rbp)
+ 282:	ff 75 f8             	pushq  -0x8(%rbp)
+ 285:	ff 75 f0             	pushq  -0x10(%rbp)
+ 288:	ff 75 e8             	pushq  -0x18(%rbp)
+ 28b:	ff 75 e0             	pushq  -0x20(%rbp)
+ 28e:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 295 <printLongDoubleCharacteristics+0x15a>
+ 295:	e8 00 00 00 00       	callq  29a <printLongDoubleCharacteristics+0x15f>
+ 29a:	48 83 c4 20          	add    $0x20,%rsp
+ 29e:	ff 75 d8             	pushq  -0x28(%rbp)
+ 2a1:	ff 75 d0             	pushq  -0x30(%rbp)
+ 2a4:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 2ab <printLongDoubleCharacteristics+0x170>
+ 2ab:	b8 01 00 00 00       	mov    $0x1,%eax
+ 2b0:	e8 00 00 00 00       	callq  2b5 <printLongDoubleCharacteristics+0x17a>
+ 2b5:	48 83 c4 10          	add    $0x10,%rsp
+ 2b9:	90                   	nop
+ 2ba:	c9                   	leaveq 
+ 2bb:	c3                   	retq   

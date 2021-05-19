@@ -1,0 +1,220 @@
+
+out/float_operations.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <getFloatSize>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	b8 20 00 00 00       	mov    $0x20,%eax
+   d:	5d                   	pop    %rbp
+   e:	c3                   	retq   
+
+000000000000000f <getFloatCSum>:
+   f:	f3 0f 1e fa          	endbr64 
+  13:	55                   	push   %rbp
+  14:	48 89 e5             	mov    %rsp,%rbp
+  17:	f3 0f 11 45 ec       	movss  %xmm0,-0x14(%rbp)
+  1c:	f3 0f 11 4d e8       	movss  %xmm1,-0x18(%rbp)
+  21:	f3 0f 10 45 ec       	movss  -0x14(%rbp),%xmm0
+  26:	f3 0f 58 45 e8       	addss  -0x18(%rbp),%xmm0
+  2b:	f3 0f 11 45 fc       	movss  %xmm0,-0x4(%rbp)
+  30:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+  35:	5d                   	pop    %rbp
+  36:	c3                   	retq   
+
+0000000000000037 <getFloatCProd>:
+  37:	f3 0f 1e fa          	endbr64 
+  3b:	55                   	push   %rbp
+  3c:	48 89 e5             	mov    %rsp,%rbp
+  3f:	f3 0f 11 45 ec       	movss  %xmm0,-0x14(%rbp)
+  44:	f3 0f 11 4d e8       	movss  %xmm1,-0x18(%rbp)
+  49:	f3 0f 10 45 ec       	movss  -0x14(%rbp),%xmm0
+  4e:	f3 0f 59 45 e8       	mulss  -0x18(%rbp),%xmm0
+  53:	f3 0f 11 45 fc       	movss  %xmm0,-0x4(%rbp)
+  58:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+  5d:	5d                   	pop    %rbp
+  5e:	c3                   	retq   
+
+000000000000005f <getFloatAsmSum>:
+  5f:	f3 0f 1e fa          	endbr64 
+  63:	55                   	push   %rbp
+  64:	48 89 e5             	mov    %rsp,%rbp
+  67:	48 83 ec 20          	sub    $0x20,%rsp
+  6b:	f3 0f 11 45 ec       	movss  %xmm0,-0x14(%rbp)
+  70:	f3 0f 11 4d e8       	movss  %xmm1,-0x18(%rbp)
+  75:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+  7c:	00 00 
+  7e:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+  82:	31 c0                	xor    %eax,%eax
+  84:	d9 45 ec             	flds   -0x14(%rbp)
+  87:	d9 45 e8             	flds   -0x18(%rbp)
+  8a:	de c1                	faddp  %st,%st(1)
+  8c:	d9 5d f4             	fstps  -0xc(%rbp)
+  8f:	f3 0f 10 45 f4       	movss  -0xc(%rbp),%xmm0
+  94:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  98:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+  9f:	00 00 
+  a1:	74 05                	je     a8 <getFloatAsmSum+0x49>
+  a3:	e8 00 00 00 00       	callq  a8 <getFloatAsmSum+0x49>
+  a8:	c9                   	leaveq 
+  a9:	c3                   	retq   
+
+00000000000000aa <getFloatAsmProd>:
+  aa:	f3 0f 1e fa          	endbr64 
+  ae:	55                   	push   %rbp
+  af:	48 89 e5             	mov    %rsp,%rbp
+  b2:	48 83 ec 20          	sub    $0x20,%rsp
+  b6:	f3 0f 11 45 ec       	movss  %xmm0,-0x14(%rbp)
+  bb:	f3 0f 11 4d e8       	movss  %xmm1,-0x18(%rbp)
+  c0:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+  c7:	00 00 
+  c9:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+  cd:	31 c0                	xor    %eax,%eax
+  cf:	d9 45 ec             	flds   -0x14(%rbp)
+  d2:	d9 45 e8             	flds   -0x18(%rbp)
+  d5:	de c9                	fmulp  %st,%st(1)
+  d7:	d9 5d f4             	fstps  -0xc(%rbp)
+  da:	f3 0f 10 45 f4       	movss  -0xc(%rbp),%xmm0
+  df:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  e3:	64 48 33 04 25 28 00 	xor    %fs:0x28,%rax
+  ea:	00 00 
+  ec:	74 05                	je     f3 <getFloatAsmProd+0x49>
+  ee:	e8 00 00 00 00       	callq  f3 <getFloatAsmProd+0x49>
+  f3:	c9                   	leaveq 
+  f4:	c3                   	retq   
+
+00000000000000f5 <getFloatFuncTime>:
+  f5:	f3 0f 1e fa          	endbr64 
+  f9:	55                   	push   %rbp
+  fa:	48 89 e5             	mov    %rsp,%rbp
+  fd:	48 83 ec 30          	sub    $0x30,%rsp
+ 101:	f3 0f 11 45 dc       	movss  %xmm0,-0x24(%rbp)
+ 106:	f3 0f 11 4d d8       	movss  %xmm1,-0x28(%rbp)
+ 10b:	48 89 7d d0          	mov    %rdi,-0x30(%rbp)
+ 10f:	e8 00 00 00 00       	callq  114 <getFloatFuncTime+0x1f>
+ 114:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+ 118:	48 c7 45 e8 00 00 00 	movq   $0x0,-0x18(%rbp)
+ 11f:	00 
+ 120:	eb 1a                	jmp    13c <getFloatFuncTime+0x47>
+ 122:	f3 0f 10 45 d8       	movss  -0x28(%rbp),%xmm0
+ 127:	8b 45 dc             	mov    -0x24(%rbp),%eax
+ 12a:	48 8b 55 d0          	mov    -0x30(%rbp),%rdx
+ 12e:	0f 28 c8             	movaps %xmm0,%xmm1
+ 131:	66 0f 6e c0          	movd   %eax,%xmm0
+ 135:	ff d2                	callq  *%rdx
+ 137:	48 83 45 e8 01       	addq   $0x1,-0x18(%rbp)
+ 13c:	48 81 7d e8 3f 42 0f 	cmpq   $0xf423f,-0x18(%rbp)
+ 143:	00 
+ 144:	76 dc                	jbe    122 <getFloatFuncTime+0x2d>
+ 146:	e8 00 00 00 00       	callq  14b <getFloatFuncTime+0x56>
+ 14b:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+ 14f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+ 153:	48 2b 45 f0          	sub    -0x10(%rbp),%rax
+ 157:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+ 15c:	f2 0f 10 0d 00 00 00 	movsd  0x0(%rip),%xmm1        # 164 <getFloatFuncTime+0x6f>
+ 163:	00 
+ 164:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+ 168:	f2 0f 10 0d 00 00 00 	movsd  0x0(%rip),%xmm1        # 170 <getFloatFuncTime+0x7b>
+ 16f:	00 
+ 170:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+ 174:	c9                   	leaveq 
+ 175:	c3                   	retq   
+
+0000000000000176 <printFloatCharacteristics>:
+ 176:	f3 0f 1e fa          	endbr64 
+ 17a:	55                   	push   %rbp
+ 17b:	48 89 e5             	mov    %rsp,%rbp
+ 17e:	48 83 ec 20          	sub    $0x20,%rsp
+ 182:	f3 0f 10 05 00 00 00 	movss  0x0(%rip),%xmm0        # 18a <printFloatCharacteristics+0x14>
+ 189:	00 
+ 18a:	f3 0f 11 45 f8       	movss  %xmm0,-0x8(%rbp)
+ 18f:	f3 0f 10 05 00 00 00 	movss  0x0(%rip),%xmm0        # 197 <printFloatCharacteristics+0x21>
+ 196:	00 
+ 197:	f3 0f 11 45 fc       	movss  %xmm0,-0x4(%rbp)
+ 19c:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 1a3 <printFloatCharacteristics+0x2d>
+ 1a3:	e8 00 00 00 00       	callq  1a8 <printFloatCharacteristics+0x32>
+ 1a8:	e8 00 00 00 00       	callq  1ad <printFloatCharacteristics+0x37>
+ 1ad:	89 c6                	mov    %eax,%esi
+ 1af:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 1b6 <printFloatCharacteristics+0x40>
+ 1b6:	b8 00 00 00 00       	mov    $0x0,%eax
+ 1bb:	e8 00 00 00 00       	callq  1c0 <printFloatCharacteristics+0x4a>
+ 1c0:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+ 1c5:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 1c8:	0f 28 c8             	movaps %xmm0,%xmm1
+ 1cb:	66 0f 6e c0          	movd   %eax,%xmm0
+ 1cf:	e8 00 00 00 00       	callq  1d4 <printFloatCharacteristics+0x5e>
+ 1d4:	f3 0f 5a d0          	cvtss2sd %xmm0,%xmm2
+ 1d8:	f2 0f 11 55 e8       	movsd  %xmm2,-0x18(%rbp)
+ 1dd:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+ 1e2:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 1e5:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 1ec <printFloatCharacteristics+0x76>
+ 1ec:	0f 28 c8             	movaps %xmm0,%xmm1
+ 1ef:	66 0f 6e c0          	movd   %eax,%xmm0
+ 1f3:	e8 00 00 00 00       	callq  1f8 <printFloatCharacteristics+0x82>
+ 1f8:	f2 0f 10 4d e8       	movsd  -0x18(%rbp),%xmm1
+ 1fd:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 204 <printFloatCharacteristics+0x8e>
+ 204:	b8 02 00 00 00       	mov    $0x2,%eax
+ 209:	e8 00 00 00 00       	callq  20e <printFloatCharacteristics+0x98>
+ 20e:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+ 213:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 216:	0f 28 c8             	movaps %xmm0,%xmm1
+ 219:	66 0f 6e c0          	movd   %eax,%xmm0
+ 21d:	e8 00 00 00 00       	callq  222 <printFloatCharacteristics+0xac>
+ 222:	f3 0f 5a d8          	cvtss2sd %xmm0,%xmm3
+ 226:	f2 0f 11 5d e8       	movsd  %xmm3,-0x18(%rbp)
+ 22b:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+ 230:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 233:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 23a <printFloatCharacteristics+0xc4>
+ 23a:	0f 28 c8             	movaps %xmm0,%xmm1
+ 23d:	66 0f 6e c0          	movd   %eax,%xmm0
+ 241:	e8 00 00 00 00       	callq  246 <printFloatCharacteristics+0xd0>
+ 246:	f2 0f 10 4d e8       	movsd  -0x18(%rbp),%xmm1
+ 24b:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 252 <printFloatCharacteristics+0xdc>
+ 252:	b8 02 00 00 00       	mov    $0x2,%eax
+ 257:	e8 00 00 00 00       	callq  25c <printFloatCharacteristics+0xe6>
+ 25c:	f3 0f 10 05 00 00 00 	movss  0x0(%rip),%xmm0        # 264 <printFloatCharacteristics+0xee>
+ 263:	00 
+ 264:	f3 0f 11 45 f8       	movss  %xmm0,-0x8(%rbp)
+ 269:	f3 0f 10 05 00 00 00 	movss  0x0(%rip),%xmm0        # 271 <printFloatCharacteristics+0xfb>
+ 270:	00 
+ 271:	f3 0f 11 45 fc       	movss  %xmm0,-0x4(%rbp)
+ 276:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+ 27b:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 27e:	0f 28 c8             	movaps %xmm0,%xmm1
+ 281:	66 0f 6e c0          	movd   %eax,%xmm0
+ 285:	e8 00 00 00 00       	callq  28a <printFloatCharacteristics+0x114>
+ 28a:	f3 0f 5a e0          	cvtss2sd %xmm0,%xmm4
+ 28e:	f2 0f 11 65 e8       	movsd  %xmm4,-0x18(%rbp)
+ 293:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+ 298:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 29b:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 2a2 <printFloatCharacteristics+0x12c>
+ 2a2:	0f 28 c8             	movaps %xmm0,%xmm1
+ 2a5:	66 0f 6e c0          	movd   %eax,%xmm0
+ 2a9:	e8 00 00 00 00       	callq  2ae <printFloatCharacteristics+0x138>
+ 2ae:	f2 0f 10 4d e8       	movsd  -0x18(%rbp),%xmm1
+ 2b3:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 2ba <printFloatCharacteristics+0x144>
+ 2ba:	b8 02 00 00 00       	mov    $0x2,%eax
+ 2bf:	e8 00 00 00 00       	callq  2c4 <printFloatCharacteristics+0x14e>
+ 2c4:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+ 2c9:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 2cc:	0f 28 c8             	movaps %xmm0,%xmm1
+ 2cf:	66 0f 6e c0          	movd   %eax,%xmm0
+ 2d3:	e8 00 00 00 00       	callq  2d8 <printFloatCharacteristics+0x162>
+ 2d8:	f3 0f 5a e8          	cvtss2sd %xmm0,%xmm5
+ 2dc:	f2 0f 11 6d e8       	movsd  %xmm5,-0x18(%rbp)
+ 2e1:	f3 0f 10 45 fc       	movss  -0x4(%rbp),%xmm0
+ 2e6:	8b 45 f8             	mov    -0x8(%rbp),%eax
+ 2e9:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 2f0 <printFloatCharacteristics+0x17a>
+ 2f0:	0f 28 c8             	movaps %xmm0,%xmm1
+ 2f3:	66 0f 6e c0          	movd   %eax,%xmm0
+ 2f7:	e8 00 00 00 00       	callq  2fc <printFloatCharacteristics+0x186>
+ 2fc:	f2 0f 10 4d e8       	movsd  -0x18(%rbp),%xmm1
+ 301:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 308 <printFloatCharacteristics+0x192>
+ 308:	b8 02 00 00 00       	mov    $0x2,%eax
+ 30d:	e8 00 00 00 00       	callq  312 <printFloatCharacteristics+0x19c>
+ 312:	90                   	nop
+ 313:	c9                   	leaveq 
+ 314:	c3                   	retq   
