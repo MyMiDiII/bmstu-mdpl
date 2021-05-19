@@ -25,4 +25,9 @@ void printSinCharacteristics(void)
     printf("PI = 3.141596          : %g\n", sin(PI6));
     double fpuPi = getFPUPi();
     printf("FPUPI = %.14g: %g\n", fpuPi, sin(fpuPi));
+
+    puts("SIN(PI / 2)");
+    printf("PI = 3.14              : %g\n", sin(PI2 / 2));
+    printf("PI = 3.141596          : %g\n", sin(PI6 / 2));
+    printf("FPUPI = %.14g: %g\n", fpuPi, sin(fpuPi / 2));
 }
