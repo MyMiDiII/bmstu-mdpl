@@ -1,0 +1,17 @@
+
+out/long_double_operations.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <printLongDoubleCharacteristics>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # f <printLongDoubleCharacteristics+0xf>
+   f:	e8 00 00 00 00       	callq  14 <printLongDoubleCharacteristics+0x14>
+  14:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 1b <printLongDoubleCharacteristics+0x1b>
+  1b:	e8 00 00 00 00       	callq  20 <printLongDoubleCharacteristics+0x20>
+  20:	90                   	nop
+  21:	5d                   	pop    %rbp
+  22:	c3                   	retq   
