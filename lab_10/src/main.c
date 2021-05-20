@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "times.h"
 #include "c_scalar_prod.h"
@@ -6,6 +8,9 @@
 #define OK 0 
 
 #define MAX_SIZE 1000
+
+#define getDoubleRandom(min, max) \
+(double) rand() / RAND_MAX * ((max) - (min)) + (min)
 
 void getSimpleTest(funcParams_t *const params)
 {
@@ -21,6 +26,19 @@ void getSimpleTest(funcParams_t *const params)
     params->size = 3;
 }
 
+void getRandomArrays(funcParams_t *const params)
+{
+    srand(time(NULL));
+
+    params->size = 1 + rand() % 1000;
+
+    for (size_t i = 0; i < params->size; ++i)
+    {
+        params->a[i] = getDoubleRandom(-500, 500);
+        params->b[i] = getDoubleRandom(-500, 500);
+    }
+}
+
 int main(void)
 {
     double a[MAX_SIZE];
@@ -31,6 +49,10 @@ int main(void)
     getSimpleTest(&params);
 
     printf("C RES: %f", cScalarProd(params.a, params.b, params.size));
+
+    getRandomArrays(&params);
+
+    printf("C TIME: %g", getTime(params, cScalarProd));
 
     return OK;
 }
