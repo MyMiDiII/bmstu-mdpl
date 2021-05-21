@@ -6,7 +6,7 @@ vpath %.c $(SRCDIR)
 
 CC := gcc
 PATHFLAG := -I$(INCDIR)
-CFLAGS := -std=c99 $(PATHFLAG) -Wall -Werror -O0 -fno-inline -masm=intel
+CFLAGS := -std=c99 $(PATHFLAG) -Wall -Werror -O0 -fno-inline -masm=intel -mavx -mavx2
 
 SRCS := $(wildcard $(SRCDIR)*.c)
 OBGS := $(patsubst $(SRCDIR)%.c,$(OUTDIR)%.o,$(SRCS))
