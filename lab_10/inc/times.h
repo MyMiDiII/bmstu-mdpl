@@ -3,18 +3,20 @@
 
 #include <stddef.h>
 
+#include "pack.h"
+
 #define REPEATS 1000000
 
 typedef double scalarProd(
-    const double *const,
-    const double *const,
+    const pack_t *,
+    const pack_t *,
     const size_t
 );
 
 typedef struct funcParams
 {
-    double *a;
-    double *b;
+    pack_t *a;
+    pack_t *b;
     size_t size;
 } funcParams_t;
 
