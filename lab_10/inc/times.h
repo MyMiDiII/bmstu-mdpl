@@ -5,7 +5,7 @@
 
 #include "pack.h"
 
-#define REPEATS 1000000
+#define REPEATS 1//000000
 
 typedef double scalarProd(
     const pack_t *,

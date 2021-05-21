@@ -27,8 +27,8 @@ void getRandomArrays(funcParams_t *const params)
 {
     srand(time(NULL));
 
-    params->size = 1 + rand() % 1000;
-    //printf("%lu\n", params->size);
+    params->size = 8;//1 + rand() % 1000;
+    printf("%lu\n", params->size);
 
     double a[MAX_SIZE];
     double b[MAX_SIZE];
@@ -43,7 +43,7 @@ void getRandomArrays(funcParams_t *const params)
     packArray(params->b, b, params->size);
 
     params->size = (params->size - 1) / 4 + 1;
-    //printf("%lu\n", params->size);
+    printf("%lu\n", params->size);
 }
 
 int main(void)
@@ -58,10 +58,12 @@ int main(void)
     //printf("%lu\n", params.size);
 
     printf("C RES: %f\n", cScalarProd(params.a, params.b, params.size));
+    printf("ASM RES: %f\n", asmScalarProd(params.a, params.b, params.size));
 
     getRandomArrays(&params);
 
     printf("C TIME: %g\n", getTime(params, cScalarProd));
+    printf("ASM TIME: %g\n", getTime(params, asmScalarProd));
 
     return OK;
 }
