@@ -15,7 +15,7 @@
 void getSimpleTest(funcParams_t *const params)
 {
     double a[3] = {1, 2, 3};
-    double b[3] = {6, 4, -2};
+    double b[3] = {6, 4, -6};
 
     packArray(params->a, a, 3);
     packArray(params->b, b, 3);
@@ -27,8 +27,7 @@ void getRandomArrays(funcParams_t *const params)
 {
     srand(time(NULL));
 
-    params->size = 8;//1 + rand() % 1000;
-    printf("%lu\n", params->size);
+    params->size = 1 + rand() % 1000;
 
     double a[MAX_SIZE];
     double b[MAX_SIZE];
@@ -43,7 +42,6 @@ void getRandomArrays(funcParams_t *const params)
     packArray(params->b, b, params->size);
 
     params->size = (params->size - 1) / 4 + 1;
-    printf("%lu\n", params->size);
 }
 
 int main(void)
@@ -54,8 +52,6 @@ int main(void)
     funcParams_t params = { .a = a, .b = b};
 
     getSimpleTest(&params);
-
-    //printf("%lu\n", params.size);
 
     printf("C RES: %f\n", cScalarProd(params.a, params.b, params.size));
     printf("ASM RES: %f\n", asmScalarProd(params.a, params.b, params.size));
