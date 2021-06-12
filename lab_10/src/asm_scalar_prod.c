@@ -23,7 +23,7 @@ double asmScalarProd(
             "movsd qword ptr [%0], xmm0\n"
             :
             : "r"(&res), "m"(*a), "m"(*b)
-            : "ymm0", "ymm1", "ymm2", "ymm3"
+            : "ymm0", "ymm1", "ymm2"
         );
     }
 
